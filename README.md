@@ -47,7 +47,7 @@ Interface Streamlit :
 
 ## 📁 Structure du projet
 
-digitup-test-manel/
+''' digitup-test-manel/
 │
 ├── app/
 │ ├── app.py # Interface principale
@@ -59,7 +59,7 @@ digitup-test-manel/
 │ └── fusion.py # Fusion résultats multimodaux
 │
 ├── requirements.txt
-└── README.md
+└── README.md '''
 
 2) Installer les dépendances
 pip install -r requirements.txt
