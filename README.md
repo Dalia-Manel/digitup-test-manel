@@ -64,8 +64,9 @@ digitup-test-manel/
 ```
 
 2) Installer les dépendances
+ ```
 pip install -r requirements.txt
-
+```
 (Optionnel mais conseillé)
 
 Installer torch compatible GPU :
@@ -73,8 +74,9 @@ Installer torch compatible GPU :
 pip install torch
 
 Exécution de l'application
+```
 streamlit run app/app.py
-
+```
 
 ## Architecture technique
 
