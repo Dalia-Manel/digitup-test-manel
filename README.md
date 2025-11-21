@@ -128,7 +128,7 @@ Better signature segmentation with deep learning
 
 Synthetic data generation for training/validation
 
-
+---
 
 Author
 
