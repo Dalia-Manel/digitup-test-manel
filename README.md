@@ -47,7 +47,8 @@ Interface Streamlit :
 
 ## 📁 Structure du projet
 
-''' digitup-test-manel/
+''':
+digitup-test-manel/
 │
 ├── app/
 │ ├── app.py # Interface principale
