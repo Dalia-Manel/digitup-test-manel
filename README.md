@@ -6,6 +6,9 @@ It integrates OCR (Arabic/French), signature detection, ID photo detection, chec
 
 ---
 
+![Aperçu du projet](ocr.png)
+
+
 ##  Main Features
 
 ###  1. Multimodal OCR (EasyOCR)
