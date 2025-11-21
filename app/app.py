@@ -14,14 +14,14 @@ try:
     from fusion import fuse_results
     from pdf2image import convert_from_bytes
 except ImportError as e:
-    st.error(f"⚠️ Erreur d'import : {e}")
+    st.error(f" Erreur d'import : {e}")
     st.info("Assurez-vous d'avoir installé les dépendances : pdf2image, pillow, opencv-python, streamlit")
 
 
 # Configuration de la page
 st.set_page_config(
     page_title="Analyseur de Documents Administratifs",
-    page_icon="📄",
+    page_icon="",
     layout="wide"
 )
 
@@ -59,7 +59,7 @@ def load_image(uploaded_file):
         
         # Si c'est un PDF, convertir en image
         if uploaded_file.type == "application/pdf":
-            st.info("📄 Conversion de la première page du PDF en cours...")
+            st.info(" Conversion de la première page du PDF en cours...")
             return convert_pdf_to_image(file_bytes)
         else:
             # Sinon, charger directement l'image
@@ -147,7 +147,7 @@ def analyze_document(image):
     
     try:
         # 2. Détection des zones de signature
-        st.info("✍️ Détection des signatures...")
+        st.info(" Détection des signatures...")
         results["signature_zones"] = detect_signature_zone(img_array)
         results["signature_present"] = check_signature_presence(img_array, results["signature_zones"])
     except Exception as e:
@@ -155,7 +155,7 @@ def analyze_document(image):
     
     try:
         # 3. Détection de la photo d'identité
-        st.info("📸 Détection de la photo d'identité...")
+        st.info(" Détection de la photo d'identité...")
         photo_result = detect_photo(img_array)
         if isinstance(photo_result, dict):
             results["photo_detected"] = photo_result.get("detected", False)
@@ -167,14 +167,14 @@ def analyze_document(image):
     
     try:
         # 4. Détection des cases cochées
-        st.info("☑️ Détection des cases cochées...")
+        st.info(" Détection des cases cochées...")
         results["checkboxes"] = detect_checkboxes(img_array)
     except Exception as e:
         results["errors"].append(f"Erreur détection cases : {str(e)}")
     
     try:
         # 5. Fusion des résultats et calcul du score global
-        st.info("⚙️ Fusion des résultats...")
+        st.info(" Fusion des résultats...")
         fusion_result = fuse_results(results)
         if isinstance(fusion_result, dict):
             results["global_score"] = fusion_result.get("score", None)
@@ -195,11 +195,11 @@ def display_results(results, annotated_image):
         results: Dictionnaire des résultats
         annotated_image: Image annotée avec les détections
     """
-    st.header("📊 Résultats de l'analyse")
+    st.header(" Résultats de l'analyse")
     
     # Afficher les erreurs s'il y en a
     if results["errors"]:
-        st.error("⚠️ Erreurs rencontrées :")
+        st.error(" Erreurs rencontrées :")
         for error in results["errors"]:
             st.write(f"- {error}")
     
@@ -207,12 +207,12 @@ def display_results(results, annotated_image):
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.subheader("🖼️ Image annotée")
+        st.subheader(" Image annotée")
         st.image(annotated_image, use_container_width=True)
     
     with col2:
         # Score global
-        st.subheader("🎯 Score global")
+        st.subheader(" Score global")
         if results["global_score"] is not None:
             score_value = results["global_score"]
             if isinstance(score_value, (int, float)):
@@ -226,12 +226,12 @@ def display_results(results, annotated_image):
         
         # Anomalies
         if results["anomalies"]:
-            st.subheader("⚠️ Anomalies détectées")
+            st.subheader(" Anomalies détectées")
             for anomaly in results["anomalies"]:
                 st.warning(f"• {anomaly}")
     
     # Résultats détaillés
-    st.subheader("📋 Résultats détaillés")
+    st.subheader(" Résultats détaillés")
     
     tabs = st.tabs(["📝 Texte OCR", "✍️ Signatures", "📸 Photo", "☑️ Cases cochées"])
     
@@ -291,11 +291,11 @@ def generate_report(results, filename):
         str: Rapport formaté
     """
     report = f"""
-# 📄 RAPPORT D'ANALYSE DE DOCUMENT
+#  RAPPORT D'ANALYSE DE DOCUMENT
 ## Document analysé : {filename}
 ---
 
-### ✅ VALIDATIONS
+###  VALIDATIONS
 
 • **Signature** : {'✓ Présente' if results['signature_present'] else '✗ Absente'}
 • **Photo d'identité** : {'✓ Détectée' if results['photo_detected'] else '✗ Non détectée'}
@@ -303,13 +303,13 @@ def generate_report(results, filename):
 
 ---
 
-### 🎯 SCORES
+### SCORES
 
 • **Score global** : {results['global_score'] if results['global_score'] is not None else 'Non disponible'}
 
 ---
 
-### ⚠️ ANOMALIES
+### ANOMALIES
 """
     
     if results["anomalies"]:
@@ -339,7 +339,7 @@ def main():
     
     # Barre latérale d'aide
     with st.sidebar:
-        st.header("ℹ️ Guide d'utilisation")
+        st.header(" Guide d'utilisation")
         st.markdown("""
         **1. Uploadez votre document**
         - Formats acceptés : PDF, JPG, PNG
@@ -358,10 +358,10 @@ def main():
         """)
         
         st.markdown("---")
-        st.info("💡 **Astuce** : Les zones détectées sont annotées en couleur sur l'image")
+        st.info(" **Astuce** : Les zones détectées sont annotées en couleur sur l'image")
     
     # Upload de fichier
-    st.subheader("📤 Étape 1 : Charger un document")
+    st.subheader(" Étape 1 : Charger un document")
     uploaded_file = st.file_uploader(
         "Choisissez un fichier (PDF, JPG, PNG)",
         type=["pdf", "jpg", "jpeg", "png"],
@@ -380,12 +380,12 @@ def main():
             st.error("Impossible de charger l'image. Vérifiez le format du fichier.")
             return
         
-        st.subheader("📷 Document chargé")
+        st.subheader("Document chargé")
         st.image(image, caption="Image originale", use_container_width=True)
         
         # Bouton d'analyse
         st.markdown("---")
-        st.subheader("🔬 Étape 2 : Analyser le document")
+        st.subheader(" Étape 2 : Analyser le document")
         
         if st.button(" Lancer l'analyse", type="primary", use_container_width=True):
             with st.spinner("Analyse en cours... Cela peut prendre quelques secondes."):
@@ -405,7 +405,7 @@ def main():
                 st.session_state.annotated_image = annotated_image
                 st.session_state.filename = uploaded_file.name
             
-            st.success("✅ Analyse terminée !")
+            st.success(" Analyse terminée !")
         
         # Afficher les résultats si disponibles
         if "results" in st.session_state:
@@ -414,7 +414,7 @@ def main():
             
             # Bouton de génération de rapport
             st.markdown("---")
-            st.subheader("📝 Étape 3 : Générer le rapport")
+            st.subheader(" Étape 3 : Générer le rapport")
             
             col1, col2, col3 = st.columns([1, 1, 1])
             
@@ -426,12 +426,12 @@ def main():
             # Afficher le rapport s'il a été généré
             if "report" in st.session_state:
                 st.markdown("---")
-                st.subheader("📋 Rapport d'analyse")
+                st.subheader(" Rapport d'analyse")
                 st.markdown(st.session_state.report)
                 
                 # Bouton de téléchargement
                 st.download_button(
-                    label="💾 Télécharger le rapport",
+                    label=" Télécharger le rapport",
                     data=st.session_state.report,
                     file_name=f"rapport_{st.session_state.filename}.txt",
                     mime="text/plain"
@@ -439,10 +439,10 @@ def main():
     
     else:
         # Message d'accueil
-        st.info("👆 Commencez par uploader un document administratif pour l'analyser")
+        st.info(" Commencez par uploader un document administratif pour l'analyser")
         
         # Exemple d'utilisation
-        with st.expander("💡 Exemple de cas d'usage"):
+        with st.expander(" Exemple de cas d'usage"):
             st.markdown("""
             **Documents compatibles :**
             - Formulaires administratifs
@@ -452,10 +452,10 @@ def main():
             - Questionnaires
             
             **Détections automatiques :**
-            - ✍️ Signatures manuscrites
-            - 📸 Photos d'identité
-            - ☑️ Cases cochées/non cochées
-            - 📝 Texte intégral (OCR)
+            - Signatures manuscrites
+            - Photos d'identité
+            - Cases cochées/non cochées
+            - Texte intégral (OCR)
             """)
 
 
