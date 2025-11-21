@@ -60,7 +60,7 @@ digitup-test-manel/
 │ └── fusion.py # Fusion résultats multimodaux
 │
 ├── requirements.txt
-└── README.md '''
+└── README.md :'''
 
 2) Installer les dépendances
 pip install -r requirements.txt
