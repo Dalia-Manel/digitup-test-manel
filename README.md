@@ -130,7 +130,7 @@ Synthetic data generation for training/validation
 
 ---
 
-Author
+## Author
+**Dalia Manel Akkouchi**  
+Master's Graduate in Software Engineering and Information Processing  
 
-Dalia Manel Akkouchi
-Software Engineering and Information Processing Master's graduate.
