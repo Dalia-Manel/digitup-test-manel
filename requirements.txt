@@ -1,0 +1,7 @@
+opencv-python
+numpy
+easyocr
+Pillow
+scikit-image
+python-bidi
+arabic-reshaper
