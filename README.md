@@ -1,7 +1,7 @@
 # Digitup Technical Test – Intelligent Document Analysis  
-**Candidate : Manel Akkouchi**
+**Candidate : Dalia Manel Akkouchi**
 
-Ce dépôt contient une application complète d’analyse intelligente de documents administratifs, intégrant OCR multilingue (ar/en), analyse de signature, détection de photo d'identité, cases cochées, fusion multimodale et interface de démonstration.
+Ce dépôt contient une application d’analyse intelligente de documents administratifs, intégrant OCR (ar/en), analyse de signature, détection de photo d'identité, cases cochées, fusion multimodale et interface de démonstration.
 
 ---
 
@@ -9,7 +9,7 @@ Ce dépôt contient une application complète d’analyse intelligente de docume
 
 ### 1.  **OCR Multimodal (EasyOCR)**
 - Reconnaissance du texte imprimé et manuscrit.
-- Support complet **arabe + anglais**.
+- Support **arabe + français**.
 - Prétraitement automatique (binarisation, netteté, correction lumière).
 - Retour du texte + score de confiance moyen.
 
@@ -40,7 +40,6 @@ Un module combine tous les résultats :
 Interface Streamlit :
 - Upload PDF / JPG / PNG
 - Visualisation annotée du document
-- Tableau des résultats
 - Rapport de fiabilité
 
 ---
@@ -52,12 +51,17 @@ digitup-test-manel/
 │
 ├── app/
 │ ├── app.py # Interface principale
-│ ├── pipeline.py # Pipeline global
 │ ├── ocr.py # OCR EasyOCR
 │ ├── signature.py # Analyse signature
 │ ├── face_detector.py # Détection photo identité
 │ ├── checkbox.py # Détection cases cochées
 │ └── fusion.py # Fusion résultats multimodaux
+│
+├── src/
+│  └── pipeline.py # Pipeline global
+│
+├── notebooks/
+│  └── digitup-experiments-ipynb # Notebook du projet
 │
 ├── requirements.txt
 └── README.md 
