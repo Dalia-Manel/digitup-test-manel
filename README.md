@@ -1,109 +1,136 @@
 # Digitup Technical Test – Intelligent Document Analysis  
-**Candidate : Dalia Manel Akkouchi**
+**Candidate: Dalia Manel Akkouchi**
 
-Ce dépôt contient une application d’analyse intelligente de documents administratifs, intégrant OCR (ar/en), analyse de signature, détection de photo d'identité, cases cochées, fusion multimodale et interface de démonstration.
-
----
-
-## Fonctionnalités principales
-
-### 1.  **OCR Multimodal (EasyOCR)**
-- Reconnaissance du texte imprimé et manuscrit.
-- Support **arabe + français**.
-- Prétraitement automatique (binarisation, netteté, correction lumière).
-- Retour du texte + score de confiance moyen.
-
-### 2. **Analyse de signature**
-- Détection de la zone de signature (heuristique : bas du document).
-- Détection d’encre via seuil adaptatif.
-- Score d’encre permettant un examen (anti-fraude basique).
-
-### 3. **Détection de photo d'identité**
-- Détection d’une zone probable contenant un visage.
-- Basé sur Haar Cascades ou heuristique selon la version.
-- Retour : `photo_found = True / False`.
-
-### 4. **Reconnaissance de cases cochées**
-- Détection simple de cases carrées.
-- Calcul du `fill_ratio` (proportion d’encre).
-- Retour des cases avec : position + taux de remplissage.
-
-### 5. **Fusion multimodale**
-Un module combine tous les résultats :
-- texte OCR + confiance  
-- présence signature + score  
-- photo d'identité  
-- cases cochées  
-- score global (pondéré)
-
-### 6. **Interface de démonstration**
-Interface Streamlit :
-- Upload PDF / JPG / PNG
-- Visualisation annotée du document
-- Rapport de fiabilité
+This repository contains an intelligent document analysis application designed for administrative documents.  
+It integrates OCR (Arabic/French), signature detection, ID photo detection, checkbox analysis, multimodal fusion, and a demo interface built with Streamlit.
 
 ---
 
-## 📁 Structure du projet
+##  Main Features
+
+###  1. Multimodal OCR (EasyOCR)
+- Recognition of printed and handwritten text.
+- Supports **Arabic + French**.
+- Automatic preprocessing (binarization, noise reduction, light normalization).
+- Outputs extracted text + average confidence score.
+
+---
+
+### 2. Signature Analysis
+- Automatic detection of the signature zone (heuristic: bottom 30% of the page).
+- Ink detection via adaptive thresholding.
+- Computes an ink-based score for basic fraud detection.
+
+---
+
+###  3. ID Photo Detection
+- Detects a probable facial region.
+- Based on Haar Cascades or heuristic face detection.
+- Returns: `photo_found = True / False`.
+
+---
+
+###  4. Checkbox Recognition
+- Detects square checkbox regions.
+- Computes `fill_ratio` (percentage of ink).
+- Returns each checkbox with:
+  - position  
+  - fill ratio  
+
+---
+
+###  5. Multimodal Fusion
+A dedicated module merges all results:
+- OCR text + confidence  
+- Signature presence + ink score  
+- ID photo detection  
+- Checkboxes + fill ratios  
+- **Global reliability score**
+
+---
+
+## Project Structure
 
 ```
 digitup-test-manel/
 │
 ├── app/
-│ ├── app.py # Interface principale
-│ ├── ocr.py # OCR EasyOCR
-│ ├── signature.py # Analyse signature
-│ ├── face_detector.py # Détection photo identité
-│ ├── checkbox.py # Détection cases cochées
-│ └── fusion.py # Fusion résultats multimodaux
+│ ├── app.py # Main Streamlit interface
+│ ├── ocr.py # EasyOCR module
+│ ├── signature.py # Signature analysis
+│ ├── face_detector.py # ID photo detection
+│ ├── checkbox.py # Checkbox detection
+│ └── fusion.py # Multimodal fusion logic
 │
 ├── src/
-│  └── pipeline.py # Pipeline global
+│ └── pipeline.py # Global processing pipeline
 │
 ├── notebooks/
-│  └── digitup-experiments-ipynb # Notebook du projet
+│ └── digitup-experiments-ipynb # Research & experiments
 │
 ├── requirements.txt
-└── README.md 
+└── README.md
 ```
 
-2) Installer les dépendances
- ```
+
+---
+
+##  Installation
+```
+### Clone the repository
+bash
+git clone https://github.com/yourusername/digitup-test-manel.git
+cd digitup-test-manel
+```
+
+ Install dependencies
+```
 pip install -r requirements.txt
 ```
-(Optionnel mais conseillé)
 
-Installer torch compatible GPU :
-
+(Optional) Install PyTorch if GPU is available:
+```
 pip install torch
+```
 
-Exécution de l'application
+Run the Application
 ```
 streamlit run app/app.py
 ```
 
-## Architecture technique
+This launches the full demo interface.
 
-Modulaire : chaque composant peut être remplacé ou amélioré indépendamment.
+### Technical Architecture
 
-Pipeline clair dans pipeline.py.
+Fully modular: each component can be upgraded independently.
 
-Extensions faciles :
+Clear pipeline structure (pipeline.py).
 
-remplacer EasyOCR par un modèle Transformer
+Easy extensibility:
 
-ajouter un module de détection de falsification
+Replace EasyOCR with a Transformer-based OCR
 
-connecter une base de données
+Add forgery detection modules
 
-## Pistes d’amélioration (listes pour l’examinateur)
+Connect to a database or online API
 
-Fine-tuning EasyOCR pour documents administratifs algériens
+Improve signature localization with segmentation models (U-Net)
 
-Post-traitement linguistique avec un modèle LM arabophone
+### Future Improvements
 
-Détection de falsification basée sur texture / SIAMESE
+Fine-tuning EasyOCR on Algerian administrative documents
 
-Amélioration de la localisation des signatures par segmentation U-Net
+Arabic post-processing using a language model
 
-Génération automatique de datasets synthétiques pour validation
+Texture-based forgery detection (Siamese networks)
+
+Better signature segmentation with deep learning
+
+Synthetic data generation for training/validation
+
+
+
+Author
+
+Dalia Manel Akkouchi
+Software Engineering and Information Processing Master's graduate.
